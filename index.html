@@ -1,43 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Un Regalo para Ti 🎁</title>
+  <meta charset="UTF-8" />
+  <title>🎁 Un Regalo Especial 🎁</title>
   <style>
-    body {
-      background-image: url('https://wallpapercave.com/wp/wp7156915.jpg');
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      padding: 50px;
+    * {
       margin: 0;
-      overflow-x: hidden;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: url('1020b923-1e88-4616-a09d-551da6f2d496.png') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
       color: white;
+      text-align: center;
+    }
+
+    /* Capa oscura sobre el fondo */
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 60px 20px;
     }
 
     h1 {
-      color: #fff;
-      background-color: rgba(0, 0, 0, 0.4);
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 12px;
+      font-size: 32px;
       margin-bottom: 40px;
-      animation: float 3s ease-in-out infinite;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 15px;
+      display: inline-block;
     }
 
     .gift-box {
-      width: 150px;
-      height: 150px;
+      width: 160px;
+      height: 160px;
       margin: 0 auto;
       background-color: #ff4d6d;
-      border-radius: 20px;
+      border-radius: 25px;
       position: relative;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       transition: transform 0.3s ease;
-      animation: pulse 2s infinite;
     }
 
     .gift-box:hover {
@@ -46,13 +66,13 @@
 
     .lid {
       position: absolute;
-      top: -30px;
+      top: -35px;
       left: 0;
-      width: 150px;
-      height: 30px;
-      background-color: #ff1e56;
-      border-radius: 20px 20px 0 0;
-      transition: top 1s;
+      width: 160px;
+      height: 35px;
+      background-color: #d80050;
+      border-radius: 25px 25px 0 0;
+      transition: top 0.8s ease;
     }
 
     .flowers {
@@ -63,20 +83,22 @@
 
     .message {
       display: none;
-      font-size: 24px;
-      margin-top: 20px;
-      background: rgba(0, 0, 0, 0.6);
+      margin: 25px auto;
+      font-size: 20px;
+      max-width: 600px;
       padding: 20px;
       border-radius: 15px;
-      animation: fadeIn 2s forwards;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      animation: fadeIn 2s ease forwards;
     }
 
     .reset-btn {
       display: none;
       margin-top: 25px;
-      padding: 10px 20px;
+      padding: 12px 25px;
       font-size: 16px;
-      background-color: #ff6f91;
+      background-color: #ff4d6d;
       color: white;
       border: none;
       border-radius: 10px;
@@ -85,7 +107,7 @@
     }
 
     .reset-btn:hover {
-      background-color: #ff4d73;
+      background-color: #e63956;
     }
 
     @keyframes float {
@@ -94,88 +116,39 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    /* Partículas decorativas */
-    .particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .particles span {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.2;
-      animation: floatUp 8s linear infinite;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      50% {
-        opacity: 0.4;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <div class="particles">
-    <!-- Crear partículas -->
-    <script>
-      for (let i = 0; i < 40; i++) {
-        let span = document.createElement('span');
-        span.style.left = Math.random() * 100 + 'vw';
-        span.style.animationDelay = Math.random() * 8 + 's';
-        document.querySelector('.particles').appendChild(span);
-      }
-    </script>
+  <div class="overlay"></div>
+
+  <div class="content">
+    <h1>🎁 ¡Haz clic en el regalo para abrirlo! 🎁</h1>
+
+    <div class="gift-box" onclick="openGift()">
+      <div class="lid" id="lid"></div>
+    </div>
+
+    <div class="flowers" id="flowers">
+      <img src="https://i.ibb.co/kM0s5sY/flowers.png" width="220" alt="Flores bonitas" />
+    </div>
+
+    <div class="message" id="message">
+      🌸 Tu amistad es un regalo que no se ve, pero llena la vida de luz y alegría.  
+      ¡Gracias por existir! 💖
+    </div>
+
+    <button class="reset-btn" id="resetBtn" onclick="resetGift()">🔄 Volver a cerrar</button>
   </div>
-
-  <h1>🎁 ¡Haz clic en el regalo para abrirlo! 🎁</h1>
-
-  <div class="gift-box" onclick="openGift()">
-    <div class="lid" id="lid"></div>
-  </div>
-
-  <div class="flowers" id="flowers">
-    <img src="https://i.ibb.co/kM0s5sY/flowers.png" width="200" alt="Flores bonitas">
-  </div>
-
-  <div class="message" id="message">
-    🌸 Tu amistad es ese regalo que no se envuelve, pero llena el corazón. 💖
-  </div>
-
-  <button class="reset-btn" id="resetBtn" onclick="resetGift()">🔄 Volver a cerrar</button>
 
   <audio id="giftSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_436bc70816.mp3"></audio>
 
   <script>
     function openGift() {
-      document.getElementById("lid").style.top = "-100px";
+      document.getElementById("lid").style.top = "-120px";
       document.getElementById("flowers").style.display = "block";
       document.getElementById("message").style.display = "block";
       document.getElementById("resetBtn").style.display = "inline-block";
@@ -183,7 +156,7 @@
     }
 
     function resetGift() {
-      document.getElementById("lid").style.top = "-30px";
+      document.getElementById("lid").style.top = "-35px";
       document.getElementById("flowers").style.display = "none";
       document.getElementById("message").style.display = "none";
       document.getElementById("resetBtn").style.display = "none";
