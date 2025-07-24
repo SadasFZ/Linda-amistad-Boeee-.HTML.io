@@ -2,13 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Un Regalo para Ti 🎁</title>
+  <title>Un Regalo Especial 🎁</title>
   <style>
     body {
       background: linear-gradient(to top, #ffdde1, #ee9ca7);
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
       padding: 50px;
+      transition: background 2s ease;
+    }
+
+    h1 {
+      color: #4b2c2c;
+      margin-bottom: 30px;
     }
 
     .gift-box {
@@ -41,23 +47,39 @@
     .flowers {
       display: none;
       margin-top: 30px;
-      animation: float 2s ease-in-out infinite;
+      animation: float 3s ease-in-out infinite;
     }
 
     .message {
       display: none;
-      font-size: 20px;
+      font-size: 22px;
       color: #fff;
       margin-top: 20px;
-      background: rgba(0,0,0,0.3);
-      padding: 15px;
-      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-radius: 15px;
       animation: fadeIn 2s forwards;
+    }
+
+    .reset-btn {
+      display: none;
+      margin-top: 25px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff6f91;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      background-color: #ff5c7a;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-15px); }
     }
 
     @keyframes fadeIn {
@@ -68,7 +90,8 @@
 </head>
 <body>
 
-  <h1>🎁 ¡Haz clic en el regalo! 🎁</h1>
+  <h1>🎁 ¡Haz clic en el regalo para abrirlo! 🎁</h1>
+
   <div class="gift-box" onclick="openGift()">
     <div class="lid" id="lid"></div>
   </div>
@@ -78,14 +101,30 @@
   </div>
 
   <div class="message" id="message">
-    🌸Tu amistad es ese regalo que no se envuelve, pero llena el corazón.💖
+    🌸 Tu amistad es un regalo que no se ve, pero se siente con el corazón. Gracias por estar siempre. 💖
   </div>
+
+  <button class="reset-btn" id="resetBtn" onclick="resetGift()">🔄 Volver a cerrar</button>
+
+  <!-- Sonido de regalo -->
+  <audio id="giftSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_436bc70816.mp3"></audio>
 
   <script>
     function openGift() {
       document.getElementById("lid").style.top = "-100px";
       document.getElementById("flowers").style.display = "block";
       document.getElementById("message").style.display = "block";
+      document.getElementById("resetBtn").style.display = "inline-block";
+      document.body.style.background = "linear-gradient(to top, #ff9a9e, #fad0c4)";
+      document.getElementById("giftSound").play();
+    }
+
+    function resetGift() {
+      document.getElementById("lid").style.top = "-30px";
+      document.getElementById("flowers").style.display = "none";
+      document.getElementById("message").style.display = "none";
+      document.getElementById("resetBtn").style.display = "none";
+      document.body.style.background = "linear-gradient(to top, #ffdde1, #ee9ca7)";
     }
   </script>
 
