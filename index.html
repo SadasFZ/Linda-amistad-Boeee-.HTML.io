@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Un Regalo para Ti 🎁</title>
+  <style>
+    body {
+      background: linear-gradient(to top, #ffdde1, #ee9ca7);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .gift-box {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto;
+      background-color: #ff4d6d;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.05);
+    }
+
+    .lid {
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 150px;
+      height: 30px;
+      background-color: #ff1e56;
+      border-radius: 20px 20px 0 0;
+      transition: top 1s;
+    }
+
+    .flowers {
+      display: none;
+      margin-top: 30px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .message {
+      display: none;
+      font-size: 20px;
+      color: #fff;
+      margin-top: 20px;
+      background: rgba(0,0,0,0.3);
+      padding: 15px;
+      border-radius: 10px;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎁 ¡Haz clic en el regalo! 🎁</h1>
+  <div class="gift-box" onclick="openGift()">
+    <div class="lid" id="lid"></div>
+  </div>
+
+  <div class="flowers" id="flowers">
+    <img src="https://i.ibb.co/kM0s5sY/flowers.png" width="200" alt="Flores bonitas">
+  </div>
+
+  <div class="message" id="message">
+    🌸Tu amistad es ese regalo que no se envuelve, pero llena el corazón.💖
+  </div>
+
+  <script>
+    function openGift() {
+      document.getElementById("lid").style.top = "-100px";
+      document.getElementById("flowers").style.display = "block";
+      document.getElementById("message").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
