@@ -2,19 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Un Regalo Especial 🎁</title>
+  <title>Un Regalo para Ti 🎁</title>
   <style>
     body {
-      background: linear-gradient(to top, #ffdde1, #ee9ca7);
+      background-image: url('https://wallpapercave.com/wp/wp7156915.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
       padding: 50px;
-      transition: background 2s ease;
+      margin: 0;
+      overflow-x: hidden;
+      color: white;
     }
 
     h1 {
-      color: #4b2c2c;
-      margin-bottom: 30px;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      animation: float 3s ease-in-out infinite;
     }
 
     .gift-box {
@@ -27,6 +37,7 @@
       cursor: pointer;
       box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       transition: transform 0.3s ease;
+      animation: pulse 2s infinite;
     }
 
     .gift-box:hover {
@@ -52,10 +63,9 @@
 
     .message {
       display: none;
-      font-size: 22px;
-      color: #fff;
+      font-size: 24px;
       margin-top: 20px;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.6);
       padding: 20px;
       border-radius: 15px;
       animation: fadeIn 2s forwards;
@@ -71,24 +81,79 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s;
     }
 
     .reset-btn:hover {
-      background-color: #ff5c7a;
+      background-color: #ff4d73;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+      50% { transform: translateY(-10px); }
     }
 
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Partículas decorativas */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .particles span {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <div class="particles">
+    <!-- Crear partículas -->
+    <script>
+      for (let i = 0; i < 40; i++) {
+        let span = document.createElement('span');
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDelay = Math.random() * 8 + 's';
+        document.querySelector('.particles').appendChild(span);
+      }
+    </script>
+  </div>
 
   <h1>🎁 ¡Haz clic en el regalo para abrirlo! 🎁</h1>
 
@@ -101,12 +166,11 @@
   </div>
 
   <div class="message" id="message">
-    🌸 Tu amistad es un regalo que no se ve, pero se siente con el corazón. Gracias por estar siempre. 💖
+    🌸 Tu amistad es ese regalo que no se envuelve, pero llena el corazón. 💖
   </div>
 
   <button class="reset-btn" id="resetBtn" onclick="resetGift()">🔄 Volver a cerrar</button>
 
-  <!-- Sonido de regalo -->
   <audio id="giftSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_436bc70816.mp3"></audio>
 
   <script>
@@ -115,7 +179,6 @@
       document.getElementById("flowers").style.display = "block";
       document.getElementById("message").style.display = "block";
       document.getElementById("resetBtn").style.display = "inline-block";
-      document.body.style.background = "linear-gradient(to top, #ff9a9e, #fad0c4)";
       document.getElementById("giftSound").play();
     }
 
@@ -124,7 +187,6 @@
       document.getElementById("flowers").style.display = "none";
       document.getElementById("message").style.display = "none";
       document.getElementById("resetBtn").style.display = "none";
-      document.body.style.background = "linear-gradient(to top, #ffdde1, #ee9ca7)";
     }
   </script>
 
