@@ -4,163 +4,376 @@
   <meta charset="UTF-8" />
   <title>🎁 Un Regalo Especial 🎁</title>
   <style>
+    /* Reset */
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
     }
-
     body, html {
       height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-      background: url('1020b923-1e88-4616-a09d-551da6f2d496.png') no-repeat center center fixed;
-      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background: linear-gradient(to top, #87ceeb 0%, #ccefff 70%, #ffffff 100%);
       position: relative;
-      color: white;
-      text-align: center;
     }
 
-    /* Capa oscura sobre el fondo */
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(3px);
+    /* Cielo */
+    .sky {
+      position: fixed;
+      top: 0; left: 0; right: 0; height: 100vh;
+      background: linear-gradient(to top, #7ec8ff 0%, #d0f0ff 100%);
+      overflow: hidden;
       z-index: 0;
     }
 
+    /* Sol animado */
+    .sun {
+      position: fixed;
+      top: 50px; right: 50px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at center, #ffd54f, #fbc02d);
+      border-radius: 50%;
+      box-shadow: 0 0 30px 10px rgba(255, 213, 79, 0.7);
+      cursor: pointer;
+      transition: background 0.5s ease, box-shadow 0.5s ease;
+      z-index: 10;
+    }
+    .sun.clicked {
+      background: radial-gradient(circle at center, #ff8a65, #e65100);
+      box-shadow: 0 0 40px 15px rgba(255, 138, 101, 0.9);
+    }
+
+    /* Casita */
+    .house {
+      position: fixed;
+      bottom: 90px;
+      left: 40px;
+      width: 180px;
+      height: 140px;
+      z-index: 5;
+    }
+    .house .roof {
+      width: 0; 
+      height: 0; 
+      border-left: 90px solid transparent;
+      border-right: 90px solid transparent;
+      border-bottom: 70px solid #c0392b;
+      margin: 0 auto;
+      border-radius: 10px;
+      filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.15));
+    }
+    .house .base {
+      background: #ecf0f1;
+      width: 180px;
+      height: 70px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: inset 0 0 15px #bbb;
+      position: relative;
+      filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.15));
+    }
+    .house .door {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 55px;
+      background: #7f8c8d;
+      border-radius: 5px;
+      box-shadow: inset 0 0 10px #555;
+    }
+    .house .window {
+      position: absolute;
+      top: 12px;
+      width: 30px;
+      height: 30px;
+      background: #ecf0f1;
+      border: 3px solid #7f8c8d;
+      border-radius: 4px;
+      box-shadow: inset 0 0 7px #bbb;
+    }
+    .house .window.left {
+      left: 30px;
+    }
+    .house .window.right {
+      right: 30px;
+    }
+
+    /* Césped */
+    .grass {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 80px;
+      background: linear-gradient(to top, #3cb043 0%, #70d145 70%);
+      box-shadow: inset 0 10px 10px #2d7a2d;
+      z-index: 3;
+    }
+    /* Hierba con puntas */
+    .grass::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 5px,
+        #2c6b2c 5px,
+        #2c6b2c 10px
+      );
+      z-index: 5;
+    }
+
+    /* Contenido principal */
     .content {
       position: relative;
-      z-index: 1;
-      padding: 60px 20px;
+      z-index: 10;
+      padding: 60px 20px 120px;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #333;
+      text-align: center;
+      user-select: none;
     }
 
     h1 {
-      font-size: 32px;
+      font-size: 2.2rem;
       margin-bottom: 40px;
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 15px;
-      display: inline-block;
+      color: #222;
+      text-shadow: 1px 1px 5px rgba(255,255,255,0.8);
     }
 
+    /* Caja regalo */
     .gift-box {
-      width: 160px;
-      height: 160px;
+      width: 180px;
+      height: 180px;
       margin: 0 auto;
-      background-color: #ff4d6d;
-      border-radius: 25px;
+      background: linear-gradient(135deg, #ff4d6d, #d80050);
+      border-radius: 30px;
       position: relative;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 30px rgba(216, 0, 80, 0.6);
       transition: transform 0.3s ease;
     }
-
     .gift-box:hover {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
 
+    /* Tapa */
     .lid {
       position: absolute;
-      top: -35px;
+      top: -40px;
       left: 0;
-      width: 160px;
-      height: 35px;
-      background-color: #d80050;
-      border-radius: 25px 25px 0 0;
+      width: 180px;
+      height: 40px;
+      background: linear-gradient(135deg, #d80050, #a7003a);
+      border-radius: 30px 30px 0 0;
+      box-shadow: 0 4px 8px rgba(216, 0, 80, 0.7);
       transition: top 0.8s ease;
     }
 
+    /* Flores hechas con CSS */
     .flowers {
       display: none;
-      margin-top: 30px;
-      animation: float 3s ease-in-out infinite;
+      margin: 30px auto 0;
+      width: 100%;
+      max-width: 350px;
+      height: 150px;
+      position: relative;
+      pointer-events: none;
+    }
+    /* Flor base */
+    .flower {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at center, #ff9ccf 40%, #f560a1 90%);
+      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+      box-shadow: 0 0 6px #f560a1;
+      animation: floatFlower 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 5px #f560a1);
+      transform-origin: center bottom;
+    }
+    /* Pétalos */
+    .flower::before, .flower::after {
+      content: "";
+      position: absolute;
+      background: radial-gradient(circle at center, #ff9ccf 40%, #f560a1 90%);
+      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+      width: 40px;
+      height: 40px;
+      top: 10px;
+      left: 10px;
+      box-shadow: 0 0 5px #f560a1;
+      transform-origin: center;
+    }
+    .flower::before {
+      transform: rotate(45deg) translate(15px, -10px);
+    }
+    .flower::after {
+      transform: rotate(-45deg) translate(-15px, -10px);
+    }
+    /* Centro flor */
+    .flower .center {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle at center, #fff07c 40%, #f5d31a 90%);
+      border-radius: 50%;
+      box-shadow: 0 0 10px #f5d31a;
+    }
+    /* Varias flores con posición y animación diferente */
+    .flower:nth-child(1) {
+      left: 0;
+      animation-delay: 0s;
+      animation-name: floatFlower;
+    }
+    .flower:nth-child(2) {
+      left: 80px;
+      animation-delay: 0.7s;
+      animation-name: floatFlower;
+      animation-duration: 3.2s;
+    }
+    .flower:nth-child(3) {
+      left: 160px;
+      animation-delay: 1.4s;
+      animation-name: floatFlower;
+      animation-duration: 3.5s;
     }
 
+    @keyframes floatFlower {
+      0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+      50% { transform: translateY(-12px) scale(1.1) rotate(5deg); }
+    }
+
+    /* Mensaje */
     .message {
       display: none;
-      margin: 25px auto;
-      font-size: 20px;
+      margin: 30px auto 0;
+      font-size: 1.2rem;
       max-width: 600px;
-      padding: 20px;
-      border-radius: 15px;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      animation: fadeIn 2s ease forwards;
+      padding: 20px 25px;
+      border-radius: 20px;
+      background: rgba(255 255 255 / 0.75);
+      color: #4a4a4a;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      font-weight: 600;
+      user-select: text;
+      animation: fadeInUp 1.3s ease forwards;
+    }
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
+    /* Botón reset */
     .reset-btn {
       display: none;
-      margin-top: 25px;
-      padding: 12px 25px;
-      font-size: 16px;
-      background-color: #ff4d6d;
+      margin: 30px auto 0;
+      padding: 14px 30px;
+      font-size: 1rem;
+      background-color: #d80050;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 25px;
       cursor: pointer;
-      transition: background 0.3s;
+      box-shadow: 0 8px 20px rgba(216,0,80,0.5);
+      transition: background-color 0.3s ease;
+      user-select: none;
     }
-
     .reset-btn:hover {
-      background-color: #e63956;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      background-color: #a7003a;
     }
   </style>
 </head>
 <body>
 
-  <div class="overlay"></div>
+  <div class="sky"></div>
 
-  <div class="content">
+  <div class="sun" id="sun" title="Haz clic para cambiar el sol"></div>
+
+  <div class="house" aria-label="Casita encantadora">
+    <div class="roof"></div>
+    <div class="base">
+      <div class="door"></div>
+      <div class="window left"></div>
+      <div class="window right"></div>
+    </div>
+  </div>
+
+  <div class="grass"></div>
+
+  <div class="content" role="main">
     <h1>🎁 ¡Haz clic en el regalo para abrirlo! 🎁</h1>
 
-    <div class="gift-box" onclick="openGift()">
+    <div class="gift-box" onclick="openGift()" role="button" aria-pressed="false" tabindex="0" aria-label="Caja de regalo. Haz clic para abrir">
       <div class="lid" id="lid"></div>
     </div>
 
-    <div class="flowers" id="flowers">
-      <img src="https://i.ibb.co/kM0s5sY/flowers.png" width="220" alt="Flores bonitas" />
+    <div class="flowers" id="flowers" aria-live="polite" aria-atomic="true" aria-relevant="additions">
+      <div class="flower"><div class="center"></div></div>
+      <div class="flower"><div class="center"></div></div>
+      <div class="flower"><div class="center"></div></div>
     </div>
 
-    <div class="message" id="message">
-      🌸 Tu amistad es un regalo que no se ve, pero llena la vida de luz y alegría.  
-      ¡Gracias por existir! 💖
+    <div class="message" id="message" role="alert" aria-live="assertive" aria-atomic="true">
+      🌸 Tu amistad es ese regalo que no se envuelve, pero llena el corazón. 💖
     </div>
 
     <button class="reset-btn" id="resetBtn" onclick="resetGift()">🔄 Volver a cerrar</button>
   </div>
 
-  <audio id="giftSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_436bc70816.mp3"></audio>
+  <audio id="giftSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_436bc70816.mp3" preload="auto"></audio>
 
   <script>
+    const lid = document.getElementById('lid');
+    const flowers = document.getElementById('flowers');
+    const message = document.getElementById('message');
+    const resetBtn = document.getElementById('resetBtn');
+    const giftBox = document.querySelector('.gift-box');
+    const giftSound = document.getElementById('giftSound');
+    const sun = document.getElementById('sun');
+
     function openGift() {
-      document.getElementById("lid").style.top = "-120px";
-      document.getElementById("flowers").style.display = "block";
-      document.getElementById("message").style.display = "block";
-      document.getElementById("resetBtn").style.display = "inline-block";
-      document.getElementById("giftSound").play();
+      lid.style.top = "-120px";
+      flowers.style.display = "block";
+      message.style.display = "block";
+      resetBtn.style.display = "inline-block";
+      giftSound.currentTime = 0;
+      giftSound.play();
+      giftBox.setAttribute('aria-pressed', 'true');
     }
 
     function resetGift() {
-      document.getElementById("lid").style.top = "-35px";
-      document.getElementById("flowers").style.display = "none";
-      document.getElementById("message").style.display = "none";
-      document.getElementById("resetBtn").style.display = "none";
+      lid.style.top = "-40px";
+      flowers.style.display = "none";
+      message.style.display = "none";
+      resetBtn.style.display = "none";
+      giftBox.setAttribute('aria-pressed', 'false');
     }
+
+    // Para poder abrir con teclado (Enter o Espacio)
+    giftBox.addEventListener('keydown', e => {
+      if(e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        if (flowers.style.display === 'block') {
+          resetGift();
+        } else {
+          openGift();
+        }
+      }
+    });
+
+    // Interacción con el sol: cambia color y sombra al hacer clic
+    sun.addEventListener('click', () => {
+      sun.classList.toggle('clicked');
+    });
   </script>
 
 </body>
