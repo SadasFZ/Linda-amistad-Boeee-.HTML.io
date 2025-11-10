@@ -1,380 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>🎁 Un Regalo Especial 🎁</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feliz cumpleaños Mia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    /* Reset */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
+    :root{
+      --bg1:#FFEEF8; /* soft pink */
+      --bg2:#FFF6E8; /* warm cream */
+      --accent1:#FF6B9A; /* bright pink */
+      --accent2:#FFB86C; /* orange */
+      --accent3:#7AE5C7; /* mint */
+      --text:#331A2A;
     }
-    body, html {
-      height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow-x: hidden;
-      background: linear-gradient(to top, #87ceeb 0%, #ccefff 70%, #ffffff 100%);
-      position: relative;
-    }
-
-    /* Cielo */
-    .sky {
-      position: fixed;
-      top: 0; left: 0; right: 0; height: 100vh;
-      background: linear-gradient(to top, #7ec8ff 0%, #d0f0ff 100%);
-      overflow: hidden;
-      z-index: 0;
+    html,body{height:100%;margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{
+      display:flex;align-items:center;justify-content:center;
+      background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.7), transparent 10%),
+                  radial-gradient(circle at 90% 80%, rgba(255,255,255,0.6), transparent 10%),
+                  linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow:hidden;
     }
 
-    /* Sol animado */
-    .sun {
-      position: fixed;
-      top: 50px; right: 50px;
-      width: 120px;
-      height: 120px;
-      background: radial-gradient(circle at center, #ffd54f, #fbc02d);
-      border-radius: 50%;
-      box-shadow: 0 0 30px 10px rgba(255, 213, 79, 0.7);
-      cursor: pointer;
-      transition: background 0.5s ease, box-shadow 0.5s ease;
-      z-index: 10;
-    }
-    .sun.clicked {
-      background: radial-gradient(circle at center, #ff8a65, #e65100);
-      box-shadow: 0 0 40px 15px rgba(255, 138, 101, 0.9);
+    /* Floral SVG pattern as repeated background */
+    body::before{
+      content:"";
+      position:fixed;inset:0;z-index:0;opacity:0.95;
+      background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"> <defs> <g id="flower"> <circle cx="50" cy="50" r="8" fill="%23FF6B9A"/> <g fill="%23FFB86C"> <ellipse rx="18" ry="8" cx="50" cy="50" transform="rotate(0 50 50)"/> <ellipse rx="18" ry="8" cx="50" cy="50" transform="rotate(45 50 50)"/> <ellipse rx="18" ry="8" cx="50" cy="50" transform="rotate(90 50 50)"/> <ellipse rx="18" ry="8" cx="50" cy="50" transform="rotate(135 50 50)"/> </g> <circle cx="50" cy="50" r="4" fill="%23FFF7D6"/> </g> </defs> <rect width="100%" height="100%" fill="transparent"/> <g opacity="0.95"> <use href="#flower" x="40" y="40"/> <use href="#flower" x="190" y="90" transform="scale(0.9)"/> <use href="#flower" x="360" y="30" transform="scale(1.1)"/> <use href="#flower" x="520" y="120" transform="scale(0.8)"/> <use href="#flower" x="120" y="260" transform="scale(1.2)"/> <use href="#flower" x="300" y="210" transform="scale(0.85)"/> <use href="#flower" x="480" y="360" transform="scale(1.0)"/> <use href="#flower" x="30" y="420" transform="scale(0.95)"/> <use href="#flower" x="240" y="430" transform="scale(1.05)"/> <use href="#flower" x="420" y="490" transform="scale(0.9)"/> </g></svg>');
+      background-repeat:repeat; background-size:420px 420px; filter: saturate(1.05) contrast(1.02);
+      pointer-events:none;
     }
 
-    /* Casita */
-    .house {
-      position: fixed;
-      bottom: 90px;
-      left: 40px;
-      width: 180px;
-      height: 140px;
-      z-index: 5;
-    }
-    .house .roof {
-      width: 0; 
-      height: 0; 
-      border-left: 90px solid transparent;
-      border-right: 90px solid transparent;
-      border-bottom: 70px solid #c0392b;
-      margin: 0 auto;
-      border-radius: 10px;
-      filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.15));
-    }
-    .house .base {
-      background: #ecf0f1;
-      width: 180px;
-      height: 70px;
-      border-radius: 0 0 20px 20px;
-      box-shadow: inset 0 0 15px #bbb;
-      position: relative;
-      filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.15));
-    }
-    .house .door {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 55px;
-      background: #7f8c8d;
-      border-radius: 5px;
-      box-shadow: inset 0 0 10px #555;
-    }
-    .house .window {
-      position: absolute;
-      top: 12px;
-      width: 30px;
-      height: 30px;
-      background: #ecf0f1;
-      border: 3px solid #7f8c8d;
-      border-radius: 4px;
-      box-shadow: inset 0 0 7px #bbb;
-    }
-    .house .window.left {
-      left: 30px;
-    }
-    .house .window.right {
-      right: 30px;
-    }
+    .card{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:18px;padding:36px 44px;border-radius:20px;backdrop-filter: blur(6px) saturate(1.2);box-shadow:0 18px 40px rgba(51,26,42,0.18);text-align:center;border: 1px solid rgba(255,255,255,0.45);}
 
-    /* Césped */
-    .grass {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100vw;
-      height: 80px;
-      background: linear-gradient(to top, #3cb043 0%, #70d145 70%);
-      box-shadow: inset 0 10px 10px #2d7a2d;
-      z-index: 3;
+    h1{
+      margin:0;font-size:clamp(2rem,6vw,4rem);line-height:1.02;font-weight:900;
+      background: linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3));
+      -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow: 0 6px 18px rgba(155,60,90,0.12);
+      letter-spacing:1px
     }
-    /* Hierba con puntas */
-    .grass::before {
-      content: "";
-      position: absolute;
-      top: -40px;
-      left: 0;
-      width: 100%;
-      height: 40px;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 5px,
-        #2c6b2c 5px,
-        #2c6b2c 10px
-      );
-      z-index: 5;
-    }
+    p.msg{margin:0;font-weight:700;color:var(--text);opacity:0.95}
 
-    /* Contenido principal */
-    .content {
-      position: relative;
-      z-index: 10;
-      padding: 60px 20px 120px;
-      max-width: 700px;
-      margin: 0 auto;
-      color: #333;
-      text-align: center;
-      user-select: none;
-    }
+    /* confetti */
+    .confetti{position:absolute;inset:0;pointer-events:none;z-index:3;}
+    .confetti i{position:absolute;display:block;width:10px;height:14px;transform-origin:center;opacity:0.95;border-radius:2px}
 
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 40px;
-      color: #222;
-      text-shadow: 1px 1px 5px rgba(255,255,255,0.8);
-    }
+    /* subtle bouncing florals under the card */
+    .floats{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);display:flex;gap:18px;z-index:2;}
+    .floats span{width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,var(--accent3),var(--accent2));box-shadow:0 8px 20px rgba(0,0,0,0.08);display:block}
 
-    /* Caja regalo */
-    .gift-box {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto;
-      background: linear-gradient(135deg, #ff4d6d, #d80050);
-      border-radius: 30px;
-      position: relative;
-      cursor: pointer;
-      box-shadow: 0 12px 30px rgba(216, 0, 80, 0.6);
-      transition: transform 0.3s ease;
-    }
-    .gift-box:hover {
-      transform: scale(1.1);
-    }
+    /* animation keyframes */
+    @keyframes fall{to{transform:translateY(110vh) rotate(520deg); opacity:0.9}}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-12px)}100%{transform:translateY(0)}}
 
-    /* Tapa */
-    .lid {
-      position: absolute;
-      top: -40px;
-      left: 0;
-      width: 180px;
-      height: 40px;
-      background: linear-gradient(135deg, #d80050, #a7003a);
-      border-radius: 30px 30px 0 0;
-      box-shadow: 0 4px 8px rgba(216, 0, 80, 0.7);
-      transition: top 0.8s ease;
-    }
+    .credit{font-size:0.8rem;color:rgba(51,26,42,0.6);margin-top:6px}
 
-    /* Flores hechas con CSS */
-    .flowers {
-      display: none;
-      margin: 30px auto 0;
-      width: 100%;
-      max-width: 350px;
-      height: 150px;
-      position: relative;
-      pointer-events: none;
-    }
-    /* Flor base */
-    .flower {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle at center, #ff9ccf 40%, #f560a1 90%);
-      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
-      box-shadow: 0 0 6px #f560a1;
-      animation: floatFlower 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 5px #f560a1);
-      transform-origin: center bottom;
-    }
-    /* Pétalos */
-    .flower::before, .flower::after {
-      content: "";
-      position: absolute;
-      background: radial-gradient(circle at center, #ff9ccf 40%, #f560a1 90%);
-      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
-      width: 40px;
-      height: 40px;
-      top: 10px;
-      left: 10px;
-      box-shadow: 0 0 5px #f560a1;
-      transform-origin: center;
-    }
-    .flower::before {
-      transform: rotate(45deg) translate(15px, -10px);
-    }
-    .flower::after {
-      transform: rotate(-45deg) translate(-15px, -10px);
-    }
-    /* Centro flor */
-    .flower .center {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle at center, #fff07c 40%, #f5d31a 90%);
-      border-radius: 50%;
-      box-shadow: 0 0 10px #f5d31a;
-    }
-    /* Varias flores con posición y animación diferente */
-    .flower:nth-child(1) {
-      left: 0;
-      animation-delay: 0s;
-      animation-name: floatFlower;
-    }
-    .flower:nth-child(2) {
-      left: 80px;
-      animation-delay: 0.7s;
-      animation-name: floatFlower;
-      animation-duration: 3.2s;
-    }
-    .flower:nth-child(3) {
-      left: 160px;
-      animation-delay: 1.4s;
-      animation-name: floatFlower;
-      animation-duration: 3.5s;
-    }
-
-    @keyframes floatFlower {
-      0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
-      50% { transform: translateY(-12px) scale(1.1) rotate(5deg); }
-    }
-
-    /* Mensaje */
-    .message {
-      display: none;
-      margin: 30px auto 0;
-      font-size: 1.2rem;
-      max-width: 600px;
-      padding: 20px 25px;
-      border-radius: 20px;
-      background: rgba(255 255 255 / 0.75);
-      color: #4a4a4a;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-      font-weight: 600;
-      user-select: text;
-      animation: fadeInUp 1.3s ease forwards;
-    }
-    @keyframes fadeInUp {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    /* Botón reset */
-    .reset-btn {
-      display: none;
-      margin: 30px auto 0;
-      padding: 14px 30px;
-      font-size: 1rem;
-      background-color: #d80050;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(216,0,80,0.5);
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    .reset-btn:hover {
-      background-color: #a7003a;
-    }
+    /* make it pretty on small screens */
+    @media (max-width:520px){.card{padding:24px 20px;border-radius:16px}} 
   </style>
 </head>
 <body>
-
-  <div class="sky"></div>
-
-  <div class="sun" id="sun" title="Haz clic para cambiar el sol"></div>
-
-  <div class="house" aria-label="Casita encantadora">
-    <div class="roof"></div>
-    <div class="base">
-      <div class="door"></div>
-      <div class="window left"></div>
-      <div class="window right"></div>
-    </div>
+  <div class="card" role="main" aria-label="Feliz cumpleaños Mia">
+    <h1>¡Feliz cumpleaños, Mia!</h1>
+    <p class="msg">Que tu día esté lleno de risas, flores y colores brillantes ✨</p>
+    <div class="credit">Hecho con cariño 💖</div>
   </div>
 
-  <div class="grass"></div>
-
-  <div class="content" role="main">
-    <h1>🎁 ¡Haz clic en el regalo para abrirlo! 🎁</h1>
-
-    <div class="gift-box" onclick="openGift()" role="button" aria-pressed="false" tabindex="0" aria-label="Caja de regalo. Haz clic para abrir">
-      <div class="lid" id="lid"></div>
-    </div>
-
-    <div class="flowers" id="flowers" aria-live="polite" aria-atomic="true" aria-relevant="additions">
-      <div class="flower"><div class="center"></div></div>
-      <div class="flower"><div class="center"></div></div>
-      <div class="flower"><div class="center"></div></div>
-    </div>
-
-    <div class="message" id="message" role="alert" aria-live="assertive" aria-atomic="true">
-      🌸 Tu amistad es ese regalo que no se envuelve, pero llena el corazón. 💖
-    </div>
-
-    <button class="reset-btn" id="resetBtn" onclick="resetGift()">🔄 Volver a cerrar</button>
+  <div class="confetti" aria-hidden="true"></div>
+  <div class="floats" aria-hidden="true">
+    <span style="animation:floaty 4s ease-in-out infinite"></span>
+    <span style="animation:floaty 5s ease-in-out infinite; border-radius:24px"></span>
+    <span style="animation:floaty 4.6s ease-in-out infinite"></span>
   </div>
-
-  <audio id="giftSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_436bc70816.mp3" preload="auto"></audio>
 
   <script>
-    const lid = document.getElementById('lid');
-    const flowers = document.getElementById('flowers');
-    const message = document.getElementById('message');
-    const resetBtn = document.getElementById('resetBtn');
-    const giftBox = document.querySelector('.gift-box');
-    const giftSound = document.getElementById('giftSound');
-    const sun = document.getElementById('sun');
-
-    function openGift() {
-      lid.style.top = "-120px";
-      flowers.style.display = "block";
-      message.style.display = "block";
-      resetBtn.style.display = "inline-block";
-      giftSound.currentTime = 0;
-      giftSound.play();
-      giftBox.setAttribute('aria-pressed', 'true');
+    // create colourful confetti pieces
+    const colors = ['#FF6B9A','#FFB86C','#7AE5C7','#F9F871','#B58CFF','#FF9AD1'];
+    const container = document.querySelector('.confetti');
+    const pieces = 36;
+    for(let i=0;i<pieces;i++){
+      const el = document.createElement('i');
+      el.style.left = Math.random()*100 + 'vw';
+      el.style.top = (Math.random()*-20) + 'vh';
+      el.style.width = (8 + Math.random()*12) + 'px';
+      el.style.height = (10 + Math.random()*18) + 'px';
+      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      el.style.transform = 'rotate('+ (Math.random()*360) +'deg)';
+      el.style.opacity = 0.95;
+      el.style.animation = 'fall ' + (3 + Math.random()*4) + 's linear ' + (Math.random()*0.8) + 's forwards';
+      container.appendChild(el);
     }
 
-    function resetGift() {
-      lid.style.top = "-40px";
-      flowers.style.display = "none";
-      message.style.display = "none";
-      resetBtn.style.display = "none";
-      giftBox.setAttribute('aria-pressed', 'false');
-    }
-
-    // Para poder abrir con teclado (Enter o Espacio)
-    giftBox.addEventListener('keydown', e => {
-      if(e.key === "Enter" || e.key === " "){
-        e.preventDefault();
-        if (flowers.style.display === 'block') {
-          resetGift();
-        } else {
-          openGift();
-        }
-      }
-    });
-
-    // Interacción con el sol: cambia color y sombra al hacer clic
-    sun.addEventListener('click', () => {
-      sun.classList.toggle('clicked');
-    });
+    // small accessibility: focus the heading for screen readers
+    const heading = document.querySelector('h1');
+    heading.setAttribute('tabindex','-1');
+    heading.focus();
   </script>
-
 </body>
 </html>
+{
