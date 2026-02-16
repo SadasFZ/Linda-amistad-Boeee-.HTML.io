@@ -1,102 +1,151 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Feliz cumpleaños Mia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg1:#FFEEF8; /* soft pink */
-      --bg2:#FFF6E8; /* warm cream */
-      --accent1:#FF6B9A; /* bright pink */
-      --accent2:#FFB86C; /* orange */
-      --accent3:#7AE5C7; /* mint */
-      --text:#331A2A;
-    }
-    html,body{height:100%;margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{
-      display:flex;align-items:center;justify-content:center;
-      background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.7), transparent 10%),
-                  radial-gradient(circle at 90% 80%, rgba(255,255,255,0.6), transparent 10%),
-                  linear-gradient(135deg,var(--bg1),var(--bg2));
-      overflow:hidden;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Una Amistad Especial</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        overflow: hidden;
+        text-align: center;
+        color: white;
     }
 
-    /* Floral SVG pattern as repeated background */
-    body::before{
-      content:"";
-      position:fixed;inset:0;z-index:0;opacity:0.95;
-      background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"> <defs> <g id="flower"> <circle cx="50" cy="50" r="8" fill="%23FF6B9A"/> <g fill="%23FFB86C"> <ellipse rx="18" ry="8" cx="50" cy="50" transform="rotate(0 50 50)"/> <ellipse rx="18" ry="8" cx="50" cy="50" transform="rotate(45 50 50)"/> <ellipse rx="18" ry="8" cx="50" cy="50" transform="rotate(90 50 50)"/> <ellipse rx="18" ry="8" cx="50" cy="50" transform="rotate(135 50 50)"/> </g> <circle cx="50" cy="50" r="4" fill="%23FFF7D6"/> </g> </defs> <rect width="100%" height="100%" fill="transparent"/> <g opacity="0.95"> <use href="#flower" x="40" y="40"/> <use href="#flower" x="190" y="90" transform="scale(0.9)"/> <use href="#flower" x="360" y="30" transform="scale(1.1)"/> <use href="#flower" x="520" y="120" transform="scale(0.8)"/> <use href="#flower" x="120" y="260" transform="scale(1.2)"/> <use href="#flower" x="300" y="210" transform="scale(0.85)"/> <use href="#flower" x="480" y="360" transform="scale(1.0)"/> <use href="#flower" x="30" y="420" transform="scale(0.95)"/> <use href="#flower" x="240" y="430" transform="scale(1.05)"/> <use href="#flower" x="420" y="490" transform="scale(0.9)"/> </g></svg>');
-      background-repeat:repeat; background-size:420px 420px; filter: saturate(1.05) contrast(1.02);
-      pointer-events:none;
+    h1 {
+        margin-top: 80px;
+        font-size: 2.8em;
+        animation: fadeIn 2s ease-in-out;
     }
 
-    .card{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:18px;padding:36px 44px;border-radius:20px;backdrop-filter: blur(6px) saturate(1.2);box-shadow:0 18px 40px rgba(51,26,42,0.18);text-align:center;border: 1px solid rgba(255,255,255,0.45);}
-
-    h1{
-      margin:0;font-size:clamp(2rem,6vw,4rem);line-height:1.02;font-weight:900;
-      background: linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3));
-      -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow: 0 6px 18px rgba(155,60,90,0.12);
-      letter-spacing:1px
+    p {
+        font-size: 1.3em;
+        margin: 30px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        animation: fadeIn 3s ease-in-out;
+        line-height: 1.6em;
     }
-    p.msg{margin:0;font-weight:700;color:var(--text);opacity:0.95}
 
-    /* confetti */
-    .confetti{position:absolute;inset:0;pointer-events:none;z-index:3;}
-    .confetti i{position:absolute;display:block;width:10px;height:14px;transform-origin:center;opacity:0.95;border-radius:2px}
+    button {
+        padding: 15px 35px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 30px;
+        background: white;
+        color: #ff4f81;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
 
-    /* subtle bouncing florals under the card */
-    .floats{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);display:flex;gap:18px;z-index:2;}
-    .floats span{width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,var(--accent3),var(--accent2));box-shadow:0 8px 20px rgba(0,0,0,0.08);display:block}
+    button:hover {
+        transform: scale(1.1);
+        background: #ff4f81;
+        color: white;
+    }
 
-    /* animation keyframes */
-    @keyframes fall{to{transform:translateY(110vh) rotate(520deg); opacity:0.9}}
-    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-12px)}100%{transform:translateY(0)}}
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(-20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
 
-    .credit{font-size:0.8rem;color:rgba(51,26,42,0.6);margin-top:6px}
+    .corazon {
+        position: absolute;
+        font-size: 25px;
+        animation: flotar 6s linear infinite;
+    }
 
-    /* make it pretty on small screens */
-    @media (max-width:520px){.card{padding:24px 20px;border-radius:16px}} 
-  </style>
+    @keyframes flotar {
+        from {transform: translateY(100vh); opacity: 1;}
+        to {transform: translateY(-10vh); opacity: 0;}
+    }
+
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+</style>
 </head>
+
 <body>
-  <div class="card" role="main" aria-label="Feliz cumpleaños Mia">
-    <h1>¡Feliz cumpleaños, Mia!</h1>
-    <p class="msg">Que tu día esté lleno de risas, flores y colores brillantes ✨</p>
-    <div class="credit">Hecho con cariño 💖</div>
-  </div>
 
-  <div class="confetti" aria-hidden="true"></div>
-  <div class="floats" aria-hidden="true">
-    <span style="animation:floaty 4s ease-in-out infinite"></span>
-    <span style="animation:floaty 5s ease-in-out infinite; border-radius:24px"></span>
-    <span style="animation:floaty 4.6s ease-in-out infinite"></span>
-  </div>
+<h1>💛 Para Una Amistad Muy Especial 💛</h1>
 
-  <script>
-    // create colourful confetti pieces
-    const colors = ['#FF6B9A','#FFB86C','#7AE5C7','#F9F871','#B58CFF','#FF9AD1'];
-    const container = document.querySelector('.confetti');
-    const pieces = 36;
-    for(let i=0;i<pieces;i++){
-      const el = document.createElement('i');
-      el.style.left = Math.random()*100 + 'vw';
-      el.style.top = (Math.random()*-20) + 'vh';
-      el.style.width = (8 + Math.random()*12) + 'px';
-      el.style.height = (10 + Math.random()*18) + 'px';
-      el.style.background = colors[Math.floor(Math.random()*colors.length)];
-      el.style.transform = 'rotate('+ (Math.random()*360) +'deg)';
-      el.style.opacity = 0.95;
-      el.style.animation = 'fall ' + (3 + Math.random()*4) + 's linear ' + (Math.random()*0.8) + 's forwards';
-      container.appendChild(el);
+<p>
+Gracias por aguantarme y por querer tener mi amistad que yo sé que no es mucho,  
+pero te dejo saber que cada que me necesites estaré para ti.  
+<br><br>
+Te quiere, <strong>Ron Damon (José)</strong> 💛
+</p>
+
+<button onclick="celebrar()">Celebrar Nuestra Amistad 🎉</button>
+
+<canvas id="confetti"></canvas>
+
+<script>
+function celebrar() {
+    // Corazones
+    for (let i = 0; i < 40; i++) {
+        let corazon = document.createElement("div");
+        corazon.classList.add("corazon");
+        corazon.innerHTML = "💖";
+        corazon.style.left = Math.random() * 100 + "vw";
+        corazon.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(corazon);
+
+        setTimeout(() => {
+            corazon.remove();
+        }, 6000);
     }
 
-    // small accessibility: focus the heading for screen readers
-    const heading = document.querySelector('h1');
-    heading.setAttribute('tabindex','-1');
-    heading.focus();
-  </script>
+    lanzarConfetti();
+}
+
+// Confetti
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particulas = [];
+
+function lanzarConfetti() {
+    for (let i = 0; i < 100; i++) {
+        particulas.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 8 + 4,
+            speed: Math.random() * 3 + 2
+        });
+    }
+}
+
+function animar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particulas.forEach((p, i) => {
+        ctx.fillStyle = `hsl(${Math.random()*360}, 100%, 60%)`;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        p.y += p.speed;
+
+        if (p.y > canvas.height) {
+            particulas.splice(i, 1);
+        }
+    });
+
+    requestAnimationFrame(animar);
+}
+
+animar();
+</script>
+
 </body>
 </html>
-{
