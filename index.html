@@ -3,148 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Una Amistad Especial</title>
+<title>BossTrap - Amistad</title>
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #ff758c, #ff7eb3);
-        overflow: hidden;
-        text-align: center;
-        color: white;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    h1 {
-        margin-top: 80px;
-        font-size: 2.8em;
-        animation: fadeIn 2s ease-in-out;
-    }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f0c29;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
 
-    p {
-        font-size: 1.3em;
-        margin: 30px;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-        animation: fadeIn 3s ease-in-out;
-        line-height: 1.6em;
-    }
+/* Fondo animado */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
 
-    button {
-        padding: 15px 35px;
-        font-size: 1.2em;
-        border: none;
-        border-radius: 30px;
-        background: white;
-        color: #ff4f81;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: 0.3s;
-    }
+/* Tarjeta principal */
+.card {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 0, 150, 0.3);
+    animation: fadeIn 1.5s ease-in-out;
+}
 
-    button:hover {
-        transform: scale(1.1);
-        background: #ff4f81;
-        color: white;
-    }
+/* Logo */
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    color: #ff4fd8;
+}
 
-    @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(-20px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
+/* Título */
+h1 {
+    margin-bottom: 20px;
+}
 
-    .corazon {
-        position: absolute;
-        font-size: 25px;
-        animation: flotar 6s linear infinite;
-    }
+/* Texto */
+p {
+    font-size: 1.1em;
+    line-height: 1.6em;
+    margin-bottom: 25px;
+}
 
-    @keyframes flotar {
-        from {transform: translateY(100vh); opacity: 1;}
-        to {transform: translateY(-10vh); opacity: 0;}
-    }
+/* Botón */
+button {
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff4fd8, #ff7eb3);
+    color: white;
+    transition: 0.3s;
+    box-shadow: 0 0 15px #ff4fd8;
+}
 
-    canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-    }
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px #ff4fd8;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* Corazones */
+.heart {
+    position: absolute;
+    font-size: 22px;
+    animation: floatUp 5s linear forwards;
+}
+
+@keyframes floatUp {
+    from {transform: translateY(0); opacity: 1;}
+    to {transform: translateY(-500px); opacity: 0;}
+}
 </style>
 </head>
 
 <body>
 
-<h1>💛 Para Una Amistad Muy Especial 💛</h1>
+<canvas id="bg"></canvas>
 
-<p>
-Gracias por aguantarme y por querer tener mi amistad que yo sé que no es mucho,  
-pero te dejo saber que cada que me necesites estaré para ti.  
-<br><br>
-Te quiere, <strong>Ron Damon (José)</strong> 💛
-</p>
-
-<button onclick="celebrar()">Celebrar Nuestra Amistad 🎉</button>
-
-<canvas id="confetti"></canvas>
+<div class="card">
+    <div class="logo">⚡ BossTrap ⚡</div>
+    <h1>💛 Para Una Amistad Muy Especial 💛</h1>
+    <p>
+        Gracias por aguantarme y por querer tener mi amistad que yo sé que no es mucho, 
+        pero te dejo saber que cada que me necesites estaré para ti.
+        <br><br>
+        Te quiere, <strong>Ron Damon (José)</strong> 💛
+    </p>
+    <button onclick="celebrar()">Celebrar 🎉</button>
+</div>
 
 <script>
-function celebrar() {
-    // Corazones
-    for (let i = 0; i < 40; i++) {
-        let corazon = document.createElement("div");
-        corazon.classList.add("corazon");
-        corazon.innerHTML = "💖";
-        corazon.style.left = Math.random() * 100 + "vw";
-        corazon.style.animationDuration = (Math.random() * 3 + 3) + "s";
-        document.body.appendChild(corazon);
-
-        setTimeout(() => {
-            corazon.remove();
-        }, 6000);
-    }
-
-    lanzarConfetti();
-}
-
-// Confetti
-const canvas = document.getElementById("confetti");
+// Fondo animado tipo partículas
+const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let particulas = [];
+let particles = [];
 
-function lanzarConfetti() {
-    for (let i = 0; i < 100; i++) {
-        particulas.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height - canvas.height,
-            size: Math.random() * 8 + 4,
-            speed: Math.random() * 3 + 2
-        });
-    }
+for (let i = 0; i < 80; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2,
+        speed: Math.random() * 0.5
+    });
 }
 
-function animar() {
+function animateBackground() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
 
-    particulas.forEach((p, i) => {
-        ctx.fillStyle = `hsl(${Math.random()*360}, 100%, 60%)`;
-        ctx.fillRect(p.x, p.y, p.size, p.size);
-        p.y += p.speed;
-
-        if (p.y > canvas.height) {
-            particulas.splice(i, 1);
-        }
+    particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        p.y -= p.speed;
+        if (p.y < 0) p.y = canvas.height;
     });
 
-    requestAnimationFrame(animar);
+    requestAnimationFrame(animateBackground);
 }
 
-animar();
+animateBackground();
+
+// Celebración con corazones
+function celebrar() {
+    for (let i = 0; i < 30; i++) {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight - 50 + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+}
 </script>
 
 </body>
